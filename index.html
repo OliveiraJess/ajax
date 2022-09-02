@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Github</title>
+  </head>
+
+  <body>
+
+    <div id="app">
+      <h1>Github</h1>
+
+      <button onclick="recuperarDados()">Recuperar Dados do GitHub</button>
+
+      <br />
+      <br />
+    </div>
+
+    <script type="text/javascript">
+      var elApp = document.getElementById("app");
+
+      function recuperarDados() {
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("GET", "https://api.github.com/users/OliveiraJess");
+        xhr.send(null);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            var res = JSON.parse(xhr.responseText);
+            // console.log(JSON.parse(xhr.responseText))
+
+            var nome = res.name;
+            var avatar_url = res.avatar_url;
+            var bio = res.bio;
+            var followers = res.followers;
+            var public_repos = res.public_repos;
+    
+
+            var elAvatar = document.createElement("img");
+            elAvatar.setAttribute("width", "128");
+            elAvatar.setAttribute("src", avatar_url);
+
+            var elNome = document.createElement("p");
+            elNome.innerText = `Nome: ${nome}`;
+
+            var elBio = document.createElement("p");
+            elBio.innerText = `Bio: ${bio}`;
+
+            var elPublic_repos = document.createElement("p");
+            elPublic_repos.innerText = `Respositórios Púbicos: ${public_repos}`;;
+
+            var elFollowers = document.createElement("p");
+            elFollowers.innerText = `Seguidores: ${followers}`;
+
+            elApp.appendChild(elAvatar);
+            elApp.appendChild(elNome);
+            elApp.appendChild(elBio);
+            elApp.appendChild(elPublic_repos);
+            elApp.appendChild(elFollowers);
+          }
+        };
+      }
+    </script>
+  </body>
+</html>
